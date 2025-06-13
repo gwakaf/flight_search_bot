@@ -1,0 +1,21 @@
+{
+    "flight_search": {
+        "origin": "SFO",
+        "destination": "OGG",
+        "start_date": "2025-07-31",
+        "start_date_flexibility": 3,
+        "stay_duration": {
+            "min_days": 7,
+            "max_days": 8
+        },
+        "max_price": 500,
+        "currency": "USD",
+        "adults": 1,
+        "max_results": 50,
+        "nonStop": false,
+        "returnDate": null
+    },
+    "telegram": {
+        "chat_id": null
+    }
+} 

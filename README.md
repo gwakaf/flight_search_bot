@@ -7,19 +7,17 @@ A serverless Telegram bot for searching flights using the Amadeus API. The bot i
 - Automated flight search with configurable parameters
 - Telegram bot interface with command support
 - Dual operation modes: interactive and direct execution
-- Automatic completion and graceful shutdown
 - Configurable search parameters via JSON configuration
 - AWS Lambda + API Gateway serverless deployment
 - Real-time flight availability and pricing
 - Serverless architecture for cost efficiency
 - CloudWatch logging for monitoring and debugging
-- Secure configuration management using S3
 
 ## Project Structure
 
 ```
 .
-├── src/                  # Lambda function source code
+├── src/                  
 │   ├── lambda_handler.py # AWS Lambda handlers
 │   ├── flight_search.py  # Flight search service
 │   ├── telegram_bot.py   # Telegram bot implementation

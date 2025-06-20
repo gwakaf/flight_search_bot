@@ -1,17 +1,52 @@
 # Flight Search Bot
 
-A serverless Telegram bot for searching flights using the Amadeus API. The bot is built using AWS Lambda, API Gateway, and SAM (Serverless Application Model).
+A serverless automated flight search application with configurable parameters. 
 
 ## Features
 
-- Automated flight search with configurable parameters
-- Telegram bot interface with command support
-- Dual operation modes: interactive and direct execution
+- Telegram Bot as Frontend:
+   - No web UI required
+   - users interact via simple text commands
+   - search for flights from your phone anytime
+- Serverless architecture:
+   - No server management: AWS handles all provisioning and scaling
+   - pay only for execution time, not idle resources
 - Configurable search parameters via JSON configuration
-- AWS Lambda + API Gateway serverless deployment
-- Real-time flight availability and pricing
-- Serverless architecture for cost efficiency
+- Real-time flight availability and pricing:
+   - Instant trigger: messages immediately invoke your Lambda function
 - CloudWatch logging for monitoring and debugging
+
+## Architecture
+![image](https://github.com/user-attachments/assets/d7fe236c-ad83-491a-8c16-64adfacade68)
+
+
+### Components
+
+1. **Lambda Function (`InteractiveSearchFunction`)**
+   - Handles Telegram webhook events
+   - Processes flight search requests
+   - Integrates with Amadeus API
+   - Writes logs to CloudWatch
+
+2. **API Gateway**
+   - Receives webhook requests from Telegram
+   - Routes requests to Lambda function
+   - Handles CORS and request validation
+
+3. **IAM Roles**
+   - `InteractiveSearchFunctionRole`: Grants permissions for:
+     - CloudWatch Logs access
+     - S3 bucket access
+     - Lambda execution
+
+4. **S3 Buckets**
+   - Deployment bucket: Stores SAM deployment artifacts
+   - Config bucket: Stores application configuration
+
+### Logging
+
+The application uses CloudWatch Logs for monitoring and debugging. Log groups are automatically created with the following naming convention:
+- `/aws/lambda/flight-search-bot-{stage}-InteractiveSearchFunction`
 
 ## Project Structure
 
@@ -94,35 +129,6 @@ The deployment will create:
 - S3 buckets for configuration and deployment
 - CloudWatch Log Groups for monitoring
 
-## Architecture
-
-### Components
-
-1. **Lambda Function (`InteractiveSearchFunction`)**
-   - Handles Telegram webhook events
-   - Processes flight search requests
-   - Integrates with Amadeus API
-   - Writes logs to CloudWatch
-
-2. **API Gateway**
-   - Receives webhook requests from Telegram
-   - Routes requests to Lambda function
-   - Handles CORS and request validation
-
-3. **IAM Roles**
-   - `InteractiveSearchFunctionRole`: Grants permissions for:
-     - CloudWatch Logs access
-     - S3 bucket access
-     - Lambda execution
-
-4. **S3 Buckets**
-   - Deployment bucket: Stores SAM deployment artifacts
-   - Config bucket: Stores application configuration
-
-### Logging
-
-The application uses CloudWatch Logs for monitoring and debugging. Log groups are automatically created with the following naming convention:
-- `/aws/lambda/flight-search-bot-{stage}-InteractiveSearchFunction`
 
 ## Usage
 
@@ -218,8 +224,6 @@ The application includes comprehensive error handling:
 
 - CloudWatch Logs for Lambda functions
 - CloudWatch Metrics for API Gateway
-- X-Ray tracing (optional)
-- Custom metrics for search results
 
 ## Development
 
